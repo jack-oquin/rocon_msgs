@@ -41,6 +41,8 @@ add_service_files(
   Invite.srv
   StartSolution.srv
   StopSolution.srv
+  AddService.srv
+  RemoveService.srv
 )
 
 generate_messages(DEPENDENCIES
