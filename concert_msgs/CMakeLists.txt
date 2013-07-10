@@ -12,7 +12,6 @@ project(concert_msgs)
 find_package(catkin REQUIRED COMPONENTS 
     genmsg 
     std_msgs 
-    zeroconf_msgs 
     rocon_app_manager_msgs
 )
 
@@ -45,7 +44,6 @@ add_service_files(
 
 generate_messages(DEPENDENCIES
     std_msgs 
-    zeroconf_msgs 
     rocon_app_manager_msgs
 )
 
