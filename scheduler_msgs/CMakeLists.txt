@@ -25,7 +25,7 @@ add_message_files(
   DIRECTORY msg
   FILES
   CurrentStatus.msg
-  KnownResources
+  KnownResources.msg
   Request.msg
   Resource.msg
   SchedulerRequests.msg)
