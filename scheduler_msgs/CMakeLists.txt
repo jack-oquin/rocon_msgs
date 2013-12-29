@@ -24,6 +24,8 @@ find_package(catkin REQUIRED
 add_message_files(
   DIRECTORY msg
   FILES
+  CurrentStatus.msg
+  KnownResources
   Request.msg
   Resource.msg
   SchedulerRequests.msg)
