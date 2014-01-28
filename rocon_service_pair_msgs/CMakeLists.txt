@@ -3,7 +3,7 @@
 ##############################################################################
 
 cmake_minimum_required(VERSION 2.8.3)
-project(rocon_app_manager_msgs)
+project(rocon_service_pair_msgs)
 
 ##############################################################################
 # Dependencies
@@ -11,51 +11,39 @@ project(rocon_app_manager_msgs)
 
 find_package(catkin REQUIRED COMPONENTS 
     message_generation
-    rocon_std_msgs
-    rocon_service_pair_msgs
-    )
-
-##############################################################################
-# Messgaes
-##############################################################################
-
-add_message_files(
-  DIRECTORY msg
-  FILES
-  PairingClient.msg
-  App.msg
-  AppList.msg
-  IncompatibleAppList.msg
-  Constants.msg
-  ErrorCodes.msg
+    uuid_msgs
 )
-
-add_service_files(
-  DIRECTORY srv
-  FILES
-  GetAppList.srv
-  Init.srv
-  Invite.srv
-  SimpleInvite.srv
-  StartApp.srv
-  Status.srv
-  StopApp.srv
-)
-
-add_service_pair_files(
-  DIRECTORY pairs
-  FILES
-  StartApp.pair
-)
-
-generate_messages(DEPENDENCIES rocon_std_msgs rocon_service_pair_msgs)
 
 ##############################################################################
 # Package
 ##############################################################################
 
-catkin_package(CATKIN_DEPENDS 
-    message_runtime
-    rocon_std_msgs
-    rocon_service_pair_msgs
+# This is a bit awkward. Would like to generate pair msgs inside this package
+# for rocon_service_pair tests and also need to bring in uuid_msgs as a msg
+# dependency (doing so only via package.xml is not sufficient for deeper 
+# message generation calls). So a fake generation here of a request/response
+# message pair fills both needs.
+
+add_message_files(
+  DIRECTORY msg
+  FILES
+  TestiesPair.msg
+  TestiesPairRequest.msg
+  TestiesPairResponse.msg
+  TestiesRequest.msg
+  TestiesResponse.msg
 )
+
+generate_messages(DEPENDENCIES uuid_msgs)
+
+catkin_package(
+    CATKIN_DEPENDS message_runtime uuid_msgs
+    CFG_EXTRAS rocon_service_pair_msgs-extras.cmake
+    )
+
+##############################################################################
+# Installs
+##############################################################################
+
+# install the .pair -> .msg generator
+install(PROGRAMS scripts/genpair.py DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})

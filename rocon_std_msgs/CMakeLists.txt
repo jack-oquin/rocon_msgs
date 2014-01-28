@@ -11,7 +11,7 @@ project(rocon_std_msgs)
 
 find_package(catkin REQUIRED COMPONENTS 
     genmsg 
-    std_msgs 
+    std_msgs
 )
 
 ##############################################################################
@@ -33,9 +33,7 @@ add_service_files(
   GetPlatformInfo.srv
 )
 
-generate_messages(DEPENDENCIES
-    std_msgs 
-)
+generate_messages(DEPENDENCIES std_msgs)
 
 ##############################################################################
 # Package
